@@ -1,7 +1,7 @@
 <html>
 <body>
 <?php
-$mysql_hostname = 'endpoint';
+$mysql_hostname = '';
 $mysql_username = 'root';
 $mysql_password = 'random123';
 $mysql_database = 'random';
@@ -16,9 +16,11 @@ if($connect->connect_errno){
     echo '[응모완료!]'.'<br>';
 }
 
-mysqli_query($connect,"INSERT INTO random VALUES ('$_POST[user_name]', '$_POST[user_phone]', '$_POST[user_email]', now());");
+mysqli_query($connect,"INSERT INTO user VALUES ('$_POST[user_name]', '$_POST[user_phone]', '$_POST[user_email]', now());");
 mysqli_close($connect);
+#echo ''$_POST[user_name]'<br>'
 echo ("<meta http-equiv='Refresh' content='1; URL=index.html'>");
 ?>
 </body>
 </html>
+~             

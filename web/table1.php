@@ -38,7 +38,7 @@
                 }else{
                 echo '[연결성공!]'.'<br>';
                 }
-          $jb_sql = "SELECT * FROM random;";
+          $jb_sql = "SELECT * FROM random LIMIT 5;";
           $jb_result = mysqli_query( $connect, $jb_sql );
           while( $jb_row = mysqli_fetch_array( $jb_result ) ) {
           echo '<tr><td>' . $jb_row[ 'no' ] . '</td><td>' . $jb_row[ 'id' ] . '</td><td>' . $jb_row[ 'name' ] . '</td><td>' . $jb_row[ 'phone' ] . '</td><td>' . $jb_row[ 'address' ] .'</td></tr>';

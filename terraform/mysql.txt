@@ -1,0 +1,28 @@
+#! /bin/bash
+yum -y install http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+sed -i '35 s/gpgcheck=1/gpgcheck=0/g' /etc/yum.repos.d/mysql-community.repo
+yum install -y mysql-community-client
+
+
+mysql -uroot -p -h [endpoint]
+random123
+
+create database random;
+
+use random;
+
+create table user(
+name char(20) not null,
+phone char(11) not null,
+email char(30) not null primary key,
+date datetime not null);
+
+create table winner(
+name char(20) not null,
+phone char(11) not null,
+email char(30) not null,
+date datetime not null);
+
+insert into user values ('kim', 'cmhh0808@naver.com', '01012341234', now());
+insert into user values ('lee', 'cmhh1488@naver.com', '01012345678', now());
+insert into user values ('park', 'ovweyt@naver.com', '01012344321', now());

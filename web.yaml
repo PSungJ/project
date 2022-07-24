@@ -1,0 +1,28 @@
+---
+- name: web
+  hosts: _web
+  become: true
+    #  vars_files:
+    #      - variable.yaml
+            #vars:
+    #          ansible_ssh_private_key_file: '{{ key_name }}'
+  tasks:
+          - name: apache
+            yum:
+                    name: httpd
+                    state: latest
+          - name: start
+            service:
+                    name: httpd
+                    state: started
+                    enabled: true
+            ignore_errors: true
+          - name: html
+            copy:
+                    src: html
+                    dest: /var/www/
+          - name: restart
+            systemd:
+                    name: httpd
+                    state: restarted
+                    enabled: true

@@ -1,0 +1,17 @@
+---
+- name: web
+  hosts: _web
+  become: true
+    #  vars_files:
+    #      - variable.yaml
+            #vars:
+    #          ansible_ssh_private_key_file: '{{ key_name }}'
+  tasks:
+          - name: enabledbphp
+            shell: amazon-linux-extras enable lamp-mariadb10.2-php7.2
+          - name: installdbphp
+            shell: amazon-linux-extras install -y lamp-mariadb10.2-php7.2
+          - replace:
+              path: /var/www/html/insert.php
+              regexp: dbhost
+              replace: svc-db.cfmlcsyhy0vk.ap-northeast-2.rds.amazonaws.com

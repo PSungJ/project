@@ -1,7 +1,7 @@
 <html>
 <body>
 <?php
-$mysql_hostname = '';
+$mysql_hostname = 'dbhost';
 $mysql_username = 'root';
 $mysql_password = 'random123';
 $mysql_database = 'random';

@@ -1,5 +1,6 @@
-db_host = "DB End Point"
+db_host = "svc-db.cfmlcsyhy0vk.ap-northeast-2.rds.amazonaws.com"
 db_username = "root"
-db_password = "It12345!"
+db_password = "random123"
 db_name = "random"
 db_port = 3306
+db_email = "rhghwls0716@hanmail.net"

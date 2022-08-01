@@ -5,8 +5,7 @@ import dbinfo
 import json
 import boto3
 
-connection = pymysql.connect(host=dbinfo.db_host,port=3306,
-user=dbinfo.db_username,passwd=dbinfo.db_password,db=dbinfo.db_name)
+connection = pymysql.connect(host=dbinfo.db_host,port=dbinfo.db_port,user=dbinfo.db_username,passwd=dbinfo.db_password,db=dbinfo.db_name)
 
 def lambda_handler(event, context) :
     
@@ -30,7 +29,7 @@ def lambda_handler(event, context) :
     3. 구매 진행 시 응모하신 휴대폰 번호를 입력하시기 바랍니다.<br>
     """
     message = {"Subject" : {"Data" : subject}, "Body" : {"Html" : {"Data" : body}}}
-   
+    
     # DB 연결
     cursor = connection.cursor()
     
@@ -39,19 +38,14 @@ def lambda_handler(event, context) :
     connection.commit()
     
     # 메일을 보내기 위해 winner table에서 당첨자 email 가져오기
-    cursor.execute("SELECT email FROM user ORDER BY RAND() LIMIT 2")
+    cursor.execute("SELECT email FROM winner")
     
     rows = cursor.fetchall()
     
     for row in rows:
-        # print ("{0}".format(row[0]))
-        # winner.append(row)
-        response = client.send_email(Source = "cmhh0808@naver.com", Destination = {"ToAddresses" : [row[0]],}, Message = message)
-        
-    # response = client.send_email(Source = "cmhh0808@naver.com", Destination = {"ToAddresses" : winner}, Message = message)
+        response = client.send_email(Source = dbinfo.db_email, Destination = {"ToAddresses" : [row[0]],}, Message = message)
     
     cursor.close()
-    connection.close()
     
     return {
         'statusCode': 200,

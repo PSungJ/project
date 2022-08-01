@@ -3,15 +3,15 @@ module "svc" {
     name                     = "svc"
     key = {
         name                 = "team4-key"
-        public               = file("C:/Users/a/Desktop/key/psj.pub")
-        private              = file("C:/Users/a/Desktop/key/psj")
+        public               = file("./key/hjko.pub")
+        private              = file("./key/hjko")
         # public               = file("./key/mhan2.key.pub")
         # private              = file("./key/mhan2.key")
     }
-    domain                   = "sdkim.xyz"
+    domain                   = "khj76.xyz"
     email = {
-        source              = "ovweyt@naver.com"
-        to                  = ["ovweyt@gmail.com", "ovweyt@naver.com"]
+        source              = "rhghwls0716@naver.com"
+        to                  = ["rhghwls0716@gmail.com", "rhghwls0716@naver.com"]
     }
     region = {
         region               = "ap-northeast-2"

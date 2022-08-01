@@ -11,6 +11,12 @@ variable "key" {
 variable "domain" {
     type                     = string
 }
+variable "email" {
+    type        = object({
+        source              = string
+        to                  = list(string)
+    })
+}
 variable "region" {
     type        = object({
         region               = string
@@ -23,10 +29,31 @@ variable "cidr" {
         pub                  = list(string)
         web                  = list(string)
         db                   = list(string)
-        # ansible              = list(string)
+        igwrt                = string
+        ngwrt                = string
     })
 }
 variable "sg_bastion" {
+    type        = object({
+        description          = string
+        from_port            = number
+        to_port              = number
+        protocol             = string
+        cidr_blocks          = list(string)
+        ipv6_cidr_blocks     = list(string)
+    })
+}
+variable "sg_bastion_eg" {
+    type        = object({
+        description          = string
+        from_port            = number
+        to_port              = number
+        protocol             = string
+        cidr_blocks          = list(string)
+        ipv6_cidr_blocks     = list(string)
+    })
+}
+variable "sg_alb_eg" {
     type        = object({
         description          = string
         from_port            = number
@@ -44,6 +71,16 @@ variable "sg_web" {
         protocol             = string
     }))
 }
+variable "sg_web_eg" {
+    type        = object({
+        description          = string
+        from_port            = number
+        to_port              = number
+        protocol             = string
+        cidr_blocks          = list(string)
+        ipv6_cidr_blocks     = list(string)
+    })
+}
 variable "sg_db" {
     type        = object({
         description          = string
@@ -52,12 +89,52 @@ variable "sg_db" {
         protocol             = string
     })
 }
+variable "sg_db_eg" {
+    type        = object({
+        description          = string
+        from_port            = number
+        to_port              = number
+        protocol             = string
+        cidr_blocks          = list(string)
+        ipv6_cidr_blocks     = list(string)
+    })
+}
 variable "sg_ansible" {
     type        = object({
         description          = string
         from_port            = number
         to_port              = number
         protocol             = string
+    })
+}
+variable "sg_ansible_eg" {
+    type        = object({
+        description          = string
+        from_port            = number
+        to_port              = number
+        protocol             = string
+        cidr_blocks          = list(string)
+        ipv6_cidr_blocks     = list(string)
+    })
+}
+variable "sg_lambda" {
+    type        = object({
+        description          = string
+        from_port            = number
+        to_port              = number
+        protocol             = string
+        cidr_blocks          = list(string)
+        ipv6_cidr_blocks     = list(string)
+    })
+}
+variable "sg_lambda_eg" {
+    type        = object({
+        description          = string
+        from_port            = number
+        to_port              = number
+        protocol             = string
+        cidr_blocks          = list(string)
+        ipv6_cidr_blocks     = list(string)
     })
 }
 variable "bastion" {
@@ -71,6 +148,24 @@ variable "web" {
         count                = number
         ami                  = string
         instance_type        = string
+    })
+}
+variable "alb_target" {
+    type        = object({
+        port                 = number
+        protocol             = string
+        target_type          = string
+        
+        //health_check
+        health_enable        = bool
+        healthy_threshold    = number
+        interval             = number
+        matcher              = string
+        path                 = string
+        h_port               = string
+        h_protocol           = string
+        timeout              = number
+        unhealthy_threshold  = number
     })
 }
 variable "asgc" {
@@ -103,6 +198,7 @@ variable "ansible" {
         github               = string
         ami                  = string
         instance_type        = string
+        private_ip           = string
     })
 }
 variable "backup" {
@@ -112,4 +208,10 @@ variable "backup" {
         times                = list(string)
         count                = number
     })
+}
+variable "lambda" {
+  type          = object({
+        zip_file             = string
+        filename             = string
+  })
 }

@@ -1,11 +1,11 @@
 # S3 버켓 생성
 resource "aws_s3_bucket" "tbz" {
-  bucket = "${format("%s.%s", "home", var.domain)}"
+  bucket = format("%s.%s", "home", var.domain)
 }
 
-resource "aws_s3_bucket_policy" "tbzpy" {  
-  bucket = aws_s3_bucket.tbz.id   
-policy = <<EOF
+resource "aws_s3_bucket_policy" "tbzpy" {
+  bucket = aws_s3_bucket.tbz.id
+  policy = <<EOF
 {
   "Id": "example",
   "Version": "2012-10-17",
@@ -63,9 +63,9 @@ resource "aws_s3_object" "html" {
 }
 
 resource "aws_s3_object" "svg" {
-  for_each = fileset("./documents/", "assets/css/images/*.svg")
+  for_each     = fileset("./documents/", "assets/css/images/*.svg")
   bucket       = aws_s3_bucket.tbz.bucket
-  acl          = "public-read"  
+  acl          = "public-read"
   key          = each.value
   source       = "./documents/${each.value}"
   etag         = filemd5("./documents/${each.value}")
@@ -73,7 +73,7 @@ resource "aws_s3_object" "svg" {
 }
 
 resource "aws_s3_object" "css" {
-  for_each = fileset("./documents/", "assets/css/*.css")
+  for_each     = fileset("./documents/", "assets/css/*.css")
   bucket       = aws_s3_bucket.tbz.bucket
   acl          = "public-read"
   key          = each.value
@@ -83,7 +83,7 @@ resource "aws_s3_object" "css" {
 }
 
 resource "aws_s3_object" "js" {
-  for_each = fileset("./documents/", "assets/js/*.js")
+  for_each     = fileset("./documents/", "assets/js/*.js")
   bucket       = aws_s3_bucket.tbz.bucket
   acl          = "public-read"
   key          = each.value
@@ -93,7 +93,7 @@ resource "aws_s3_object" "js" {
 }
 
 resource "aws_s3_object" "webfontssvg" {
-  for_each = fileset("./documents/", "assets/webfonts/*.svg")
+  for_each     = fileset("./documents/", "assets/webfonts/*.svg")
   bucket       = aws_s3_bucket.tbz.bucket
   acl          = "public-read"
   key          = each.value
@@ -103,7 +103,7 @@ resource "aws_s3_object" "webfontssvg" {
 }
 
 resource "aws_s3_object" "webfontswoff" {
-  for_each = fileset("./documents/", "assets/webfonts/*.woff")
+  for_each     = fileset("./documents/", "assets/webfonts/*.woff")
   bucket       = aws_s3_bucket.tbz.bucket
   acl          = "public-read"
   key          = each.value
@@ -113,7 +113,7 @@ resource "aws_s3_object" "webfontswoff" {
 }
 
 resource "aws_s3_object" "imagesjpg" {
-  for_each = fileset("./documents/", "images/*.jpg")
+  for_each     = fileset("./documents/", "images/*.jpg")
   bucket       = aws_s3_bucket.tbz.bucket
   acl          = "public-read"
   key          = each.value

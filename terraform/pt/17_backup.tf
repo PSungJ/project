@@ -1,5 +1,5 @@
 resource "aws_iam_role" "role_backup" {
-  name = "${format("%s-role-backup", var.name)}"
+  name = format("%s-role-backup", var.name)
 
   assume_role_policy = <<EOF
 {
@@ -19,7 +19,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "policy_backup" {
-  name = "${format("%s-policy-backup", var.name)}"
+  name = format("%s-policy-backup", var.name)
   role = aws_iam_role.role_backup.id
 
   policy = <<EOF
@@ -50,7 +50,7 @@ EOF
 }
 
 resource "aws_dlm_lifecycle_policy" "dlm_policy_backup" {
-  description = "${format("%s-dlm-policy-backup", var.name)}"
+  description        = format("%s-dlm-policy-backup", var.name)
   execution_role_arn = aws_iam_role.role_backup.arn
   state              = "ENABLED"
 
@@ -58,7 +58,7 @@ resource "aws_dlm_lifecycle_policy" "dlm_policy_backup" {
     resource_types = ["VOLUME"]
 
     schedule {
-      name = "${format("%s-schedule-backup", var.name)}"
+      name = format("%s-schedule-backup", var.name)
 
       create_rule {
         interval      = var.backup.interval
